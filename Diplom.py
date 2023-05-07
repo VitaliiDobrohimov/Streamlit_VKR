@@ -6,7 +6,7 @@ import datetime
 import streamlit as st
 import collections.abc
 from pandas.tseries.offsets import DateOffset
-
+import calmap
 
 uploadFile = '2017-2022(month).csv'
 
@@ -134,7 +134,7 @@ def forecastDate(forecast):
          # if st.button('Test'):
             st.table(pr[['Date', 'Volume']])
 
-    chart = st.checkbox("Отобразить график")
+    chart = st.checkbox("Отобразить графики")
     if chart:
         fig = plt.figure(figsize=(12, 6))
         plt.plot(forecast.index, forecast, label='Прогноз', color='C0')
@@ -148,8 +148,14 @@ def forecastDate(forecast):
         plt.ylabel('Количество топлива')
         plt.title('Прогноз расхода топлива на следующий год')
         st.pyplot(fig)
+        st.title("**Даты завоза топлива в календарном виде**")
+        plt.figure(figsize=(12, 5), dpi=120)
+        calmap.calendarplot(prognoz, fig_kws={'figsize': (8, 8)},
+                            yearlabel_kws={'color': 'black', 'fontsize': 14},
+                            subplot_kws={'title': 'Прогноз дат завоза'})
 
-
+        plt.savefig('foo.png', bbox_inches='tight')
+        st.image('foo.png')
 
 def main():
     global uploadFile
