@@ -19,7 +19,7 @@ def fileUpload():
     return uploaded_file
 def analysis(file):
     if file.type =='text/csv':
-        df = pd.read_csv(file.name, names=['Date', 'MS'], delimiter=';')
+        df = pd.read_csv(file.name, names=['Date', 'MS'], delimiter=';',encoding='utf-8')
         # Предварительная обработка данных
         df.index = pd.to_datetime(df['Date'])
         for i in range(df.shape[0]):
