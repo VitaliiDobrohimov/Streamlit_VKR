@@ -31,7 +31,7 @@ def analysis(file):
         return df
 
 
-@st.cache_resource
+#@st.cache_resource
 def forecast(df):
     # Прогнозирование будущих значений
     model = SARIMAX(df, order=(2, 0, 1), seasonal_order=(2, 1, 2, 12), trend='t')
@@ -41,7 +41,7 @@ def forecast(df):
     forecast = forecast.rename("Volume")
     return forecast
 
-@st.cache_data
+#@st.cache_data
 def forecastFuel(df, forecast):
     # Вывод результата
     # График прогноза расхода  топлива
@@ -100,8 +100,6 @@ def forecastDate(forecast):
             continue
         for i in range(len(elem)):
             res.append(elem[i])
-
-
 
     prognoz = pd.Series(index=res, data=data, name='Volume')
     pr = pd.DataFrame(data=data, columns=['Volume'])
@@ -182,8 +180,8 @@ def main():
     # Four Page
 
 
-uploadFile = fileUpload()
-if __name__ == '__main__':
 
+if __name__ == '__main__':
+    uploadFile = fileUpload()
     main()
 
